@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SMS.Data.Models
 {
-    public class Cart
+    public class Card
     {
         [Key]
         [MaxLength(DataConstants.GuidMaxLength)]

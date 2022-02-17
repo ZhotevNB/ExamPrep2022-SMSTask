@@ -48,7 +48,7 @@ namespace SMS.Services
             {
                 return (isValid,validationError);
             }
-            Cart cart = new Cart();
+            Card cart = new Card();
             User user = new User()
             {
                 Username = model.Username,

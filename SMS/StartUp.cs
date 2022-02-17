@@ -23,7 +23,6 @@
                     .Add<IRepository, Repository>()
                     .Add<IUserService, UserService>()
                     .Add<IProductService, ProductService>()
-                    .Add<ICartService,CartService>()
                     .Add<IPasswordHasher, PasswordHasher>()
                     .Add<SMSDbContext>())
                 .WithConfiguration<SMSDbContext>(c => c.Database.MigrateAsync())
