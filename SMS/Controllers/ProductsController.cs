@@ -1,5 +1,7 @@
 ﻿using MyWebServer.Controllers;
 using MyWebServer.Http;
+using SMS.Contracts;
+using SMS.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +12,13 @@ namespace SMS.Controllers
 {
     public class ProductsController : Controller
     {
-        public HttpResponse Add()
+        private readonly IProductService productService;
+
+        public ProductsController(IProductService _productService)
         {
-            if (!User.IsAuthenticated)
-            {
-                return Redirect("/Users/Login");
-            }
-            return View();
+            productService= _productService;
         }
+       
         public HttpResponse Create()
         {
             if (!User.IsAuthenticated)
@@ -25,6 +26,18 @@ namespace SMS.Controllers
                 return Redirect("/Users/Login");
             }
             return View();
+        }
+        [HttpPost]
+        [Authorize]
+        public HttpResponse Create(ProductAddViewModel model)
+        {
+          var(isAddedProduct,error) = productService.AddProduct(model);
+
+            if (!isAddedProduct)
+            {
+                return Error(error);
+            }
+            return Redirect("/");
         }
     }
 }

@@ -1,28 +1,65 @@
 ﻿using Sms.Data.Common;
 using SMS.Contracts;
+using SMS.Data.Models;
 using SMS.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SMS.Services
 {
     public class ProductService : IProductService
     {
         private readonly IValidationService validationService;
-        private readonly IRepository repository;
+        private readonly IRepository repo;
 
         public ProductService(IValidationService _validationService,
-            IRepository _repository)
+            IRepository _repo)
         {
             validationService = _validationService;
-            repository = _repository;
+            repo = _repo;
         }
-        public (bool registered, string error) AddProduct(ProductAddViewModel model)
+        public (bool isRepoAddedToDB, string error) AddProduct(ProductAddViewModel model)
         {
-            throw new NotImplementedException();
+            var isRepoAddedToDB = false;
+            string error = null;
+
+            var (isValid,validationError)=validationService.ValidateModel(model);
+
+            if (!isValid)
+            {
+                return(isValid,validationError);
+            }
+
+            Product product = new Product()
+            {
+                Name=model.Name,
+                Price=model.Price
+            };
+
+            try
+            {
+                repo.Add(product);
+                repo.SaveChanges();
+                isRepoAddedToDB = true;
+            }
+            catch (Exception)
+            {
+                error = "Could not save user in DB";
+            }
+            return (isRepoAddedToDB, error);
+        }
+               
+        public IEnumerable<ProductViewModel> GetProducts()
+        {
+            return repo.All<Product>()
+                .Select(p=>new ProductViewModel
+                {
+                    ProductId = p.Id,
+                    ProductName=p.Name,
+                    ProductPrice = p.Price.ToString("F2"),
+                   
+                }).ToList();
         }
     }
 }

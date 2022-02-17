@@ -17,6 +17,6 @@ namespace SMS.Data.Models
         [Range((double)DataConstants.ProductPriceMinValue,(double)DataConstants.ProductPriceMaxValue)]
         public decimal Price { get; set; }
 
-        public Card Card { get; set; } 
+        public Cart Card { get; set; } 
     }
 }
