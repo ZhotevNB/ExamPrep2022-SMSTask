@@ -26,6 +26,6 @@ namespace SMS.Data.Models
         public string CardId { get; set; }
 
         [ForeignKey(nameof(CardId))]
-        public Card Card { get; set; } 
+        public Cart Card { get; set; } 
     }
 }

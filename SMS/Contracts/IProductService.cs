@@ -9,6 +9,11 @@ namespace SMS.Contracts
 {
     public interface IProductService
     {
-        (bool registered, string error) AddProduct(ProductAddViewModel model);
+        (bool isRepoAddedToDB, string error) AddProduct(ProductAddViewModel model);
+
+        IEnumerable<ProductViewModel> GetProducts();
+
+      
+
     }
 }

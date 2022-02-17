@@ -23,6 +23,11 @@ namespace Sms.Data.Common
             return DbSet<T>().AsQueryable();
         }
 
+        public void Delete<T>(T entity) where T : class
+        {
+            DbSet<T>().Remove(entity);
+        }
+
         public int SaveChanges()
         {
             return dbContext.SaveChanges();

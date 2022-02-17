@@ -2,7 +2,7 @@
 
 namespace SMS.Data.Migrations
 {
-    public partial class InitsialCreate : Migration
+    public partial class InitsialCreaet : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
