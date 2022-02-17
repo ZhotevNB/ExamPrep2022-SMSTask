@@ -12,7 +12,7 @@
         }
         public DbSet<User> Users { get; set; }
 
-        public DbSet<Card> Cards { get; set; }
+        public DbSet<Cart> Cards { get; set; }
 
         public DbSet<Product> Products { get; set; }
 
